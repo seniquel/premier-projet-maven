@@ -15,11 +15,19 @@
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <junit.version>3.8.1</junit.version>
+    <mode>DEV</mode>
  </properties>
 
  <build>
 	 <finalName>${project.artifactId}</finalName>
-	<plugins>
+	<!-- Activation du remplacement des variables via Maven -->
+	 <resources>
+		 <resource>
+			 <directory>src/main/resources</directory>
+			 <filtering>true</filtering>
+		 </resource>
+	 </resources>
+	 <plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-jar-plugin</artifactId>
@@ -61,4 +69,22 @@
     <version>0.0.3</version>
 	</dependency>
   </dependencies>
+  
+  <profiles>
+  	<profile>
+  		<id>dev</id>
+  		<activation>
+  			<activeByDefault>true</activeByDefault>
+  		</activation>
+  		<properties>
+  			<mode>DEV</mode>
+  		</properties>
+  	</profile>
+  	<profile>
+  		<id>prod</id>
+  		<properties>
+  			<mode>PROD</mode>
+  		</properties>
+  	</profile>
+  </profiles>
 </project>
